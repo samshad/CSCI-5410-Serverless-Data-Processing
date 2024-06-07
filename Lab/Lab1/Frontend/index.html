@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="styles.css">
+    <title>User Dashboard</title>
+</head>
+<body>
+    <div class="container">
+        <!-- Authentication section -->
+        <div id="auth">
+            <h1>Registration / Login</h1>
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username">
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password">
+            </div>
+            <button onclick="registerOrLogin('register')">Register</button>
+            <button onclick="registerOrLogin('login')">Login</button>
+        </div>
+
+        <!-- Dashboard section -->
+        <div id="dashboard">
+            <h1>Dashboard</h1>
+
+            <div id="upload-section">
+                <h2>Upload Profile Picture</h2>
+                <input type="file" id="profile-pic">
+                <button onclick="uploadProfilePicture()">Upload</button>
+            </div>
+
+            <div id="picture-section">
+                <h2>Hello <span id="user-name"></span>, Here is your Profile Picture</h2>
+                <img id="profile-picture" src="" alt="Profile Picture">
+                <div>
+                    <p id="img-status"></p>
+                </div>
+            </div>
+            <br>
+            <button onclick="logoutUser()">Logout</button>
+        </div>
+    </div>
+
+    <script src="scripts.js"></script>
+</body>
+</html>
