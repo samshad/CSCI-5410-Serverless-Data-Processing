@@ -1,6 +1,7 @@
 import json
 import boto3
 from botocore.exceptions import ClientError
+import hashlib
 
 # Initialize the DynamoDB resource
 dynamodb = boto3.resource('dynamodb')
@@ -30,6 +31,9 @@ def lambda_handler(event, context):
     # Extract username and password from the event
     username = event['username']
     password = event['password']
+
+    # Hash the password using MD5
+    password = hashlib.md5(password.encode()).hexdigest()
 
     try:
         # Retrieve the user from the table

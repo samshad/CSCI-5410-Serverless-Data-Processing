@@ -1,5 +1,6 @@
 import boto3
 import os
+import hashlib
 
 session = boto3.session.Session(
     aws_access_key_id="",
@@ -47,5 +48,5 @@ def lambda_handler(event, context):
 if __name__ == "__main__":
     os.environ["TABLE_NAME"] = "samtest"
     test_event = {"user": "asdf.jpg"}
-    result = lambda_handler(test_event, None)
-    print(result)
+    #result = lambda_handler(test_event, None)
+    print(hashlib.md5('password'.encode()).hexdigest())
