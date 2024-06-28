@@ -1,0 +1,50 @@
+/* FeedbackForm.css */
+
+.feedbackFormContainer {
+    padding: 20px;
+    max-width: 500px;
+    margin: 0 auto;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+.feedbackForm {
+    display: flex;
+    flex-direction: column;
+}
+
+.feedbackForm div {
+    margin-bottom: 15px;
+}
+
+.feedbackForm label {
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.feedbackForm input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.feedbackForm button {
+    padding: 10px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.feedbackForm button:hover {
+    background-color: #0056b3;
+}
+
+.feedbackForm p {
+    margin-top: 10px;
+    font-weight: bold;
+}
