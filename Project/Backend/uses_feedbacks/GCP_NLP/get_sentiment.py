@@ -3,11 +3,15 @@ from google.cloud import language_v2 as language
 import json
 
 # Path to Google Cloud credentials
-os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = 'csci5410-project-nlp-d1ec43ec022f.json'
+os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = 'Auth.json'
 
 # Constants
 POSITIVE_THRESHOLD = 0.24
 NEGATIVE_THRESHOLD = -0.24
+
+# Define paths for different operations
+STATUS_CHECK_PATH = '/sentiment/status'
+ANALYZE_PATH = '/sentiment/analyze'
 
 
 def lambda_handler(event, context):
@@ -27,12 +31,12 @@ def lambda_handler(event, context):
         http_method = event.get('httpMethod')
         path = event.get('path')
 
-        text = json.loads(event['body'])['text']
-
-        if http_method == 'GET' and path == '/status':
+        if http_method == 'GET' and path == STATUS_CHECK_PATH:
             return build_response(200, 'Service is operational')
-        elif http_method == 'POST' and path == '/analyze':
-            return analyze_sentiment(text)
+        elif http_method == 'POST' and path == ANALYZE_PATH:
+            text = json.loads(event['body'])['text']
+            analyzed_result = analyze_sentiment(text)
+            return build_response(200, analyzed_result)
         else:
             return build_response(404, '404 Not Found')
     except Exception as e:
@@ -100,8 +104,7 @@ def build_response(status_code, body):
 
 if __name__ == '__main__':
     # Example text
-    text = ("The floor in my room was filthy dirty. Very basic rooms. I had a 20-year-old TV in my room. "
-            "Fridge did not work. Overpriced breakfast.")
+    text = "This is a test. I am happy."
 
     event = {
         'httpMethod': 'POST',
