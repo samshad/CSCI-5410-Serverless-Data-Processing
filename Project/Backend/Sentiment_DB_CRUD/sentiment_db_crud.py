@@ -18,11 +18,11 @@ def lambda_handler(event, context):
     Main handler function for the AWS Lambda.
 
     Args:
-    event (dict): The event data containing HTTP method and parameters.
-    context (object): The runtime information of the Lambda function.
+        event (dict): The event data containing HTTP method and parameters.
+        context (object): The runtime information of the Lambda function.
 
     Returns:
-    dict: Response containing status code and message or data.
+        dict: Response containing status code and message or data.
     """
     print('Request event: ', event)
     response = None
@@ -32,19 +32,21 @@ def lambda_handler(event, context):
         path = event.get('path')
 
         if http_method == 'GET' and path == STATUS_CHECK_PATH:
-            response = build_response(200, 'Service is operational')
+            response = build_response(200, {'message': 'Service is operational'})
         elif http_method == 'GET' and path == FEEDBACK_PATH:
             response = get_feedback(json.loads(event['body']))
         elif http_method == 'GET' and path == FEEDBACKS_PATH:
             response = get_feedbacks()
         elif http_method == 'POST' and path == FEEDBACK_PATH:
             response = save_feedback(json.loads(event['body']))
+        elif http_method == 'DELETE' and path == FEEDBACK_PATH:
+            response = delete_feedback(json.loads(event['body']))
         else:
-            response = build_response(404, '404 Not Found')
+            response = build_response(404, {'message': '404 Not Found'})
 
     except Exception as e:
         print('Error:', e)
-        response = build_response(400, 'Error processing request')
+        response = build_response(400, {'message': 'Error processing request'})
 
     return response
 
@@ -54,10 +56,10 @@ def get_feedback(body):
     Get feedback by its ID or user.
 
     Args:
-    body (dict): The request body containing the feedback ID or user.
+        body (dict): The request body containing the feedback ID or user.
 
     Returns:
-    dict: A response with the feedback data.
+        dict: A response with the feedback data.
     """
     try:
         feedback_id = body.get('feedback_id')
@@ -68,10 +70,10 @@ def get_feedback(body):
         elif feedback_user:
             return get_feedback_by_user(feedback_user)
         else:
-            return build_response(400, 'Invalid request: Missing feedback_id or username')
+            return build_response(400, {'message': 'Invalid request: Missing feedback_id or username'})
     except ClientError as e:
         print('Error:', e)
-        return build_response(500, 'Error getting feedback')
+        return build_response(500, {'message': 'Error getting feedback'})
 
 
 def get_feedback_by_id(feedback_id):
@@ -79,10 +81,10 @@ def get_feedback_by_id(feedback_id):
     Get feedback by its ID.
 
     Args:
-    feedback_id (str): The ID of the feedback to retrieve.
+        feedback_id (str): The ID of the feedback to retrieve.
 
     Returns:
-    dict: A response with the feedback data.
+        dict: A response with the feedback data.
     """
     try:
         response = dynamodb_table.get_item(Key={'feedback_id': feedback_id})
@@ -90,7 +92,7 @@ def get_feedback_by_id(feedback_id):
         return build_response(200, feedback)
     except ClientError as e:
         print('Error:', e)
-        return build_response(500, 'Error getting feedback')
+        return build_response(500, {'message': 'Error getting feedback'})
 
 
 def get_feedback_by_user(feedback_user):
@@ -98,10 +100,10 @@ def get_feedback_by_user(feedback_user):
     Get feedback by its user.
 
     Args:
-    feedback_user (str): The username to retrieve feedback for.
+        feedback_user (str): The username to retrieve feedback for.
 
     Returns:
-    dict: A response with the feedback data.
+        dict: A response with the feedback data.
     """
     try:
         response = dynamodb_table.query(
@@ -112,7 +114,7 @@ def get_feedback_by_user(feedback_user):
         return build_response(200, feedback)
     except ClientError as e:
         print('Error:', e)
-        return build_response(500, 'Error getting feedback')
+        return build_response(500, {'message': 'Error getting feedback'})
 
 
 def get_feedbacks():
@@ -120,7 +122,7 @@ def get_feedbacks():
     Get all feedbacks from the database.
 
     Returns:
-    dict: A response with a list of feedbacks.
+        dict: A response with a list of feedbacks.
     """
     try:
         response = dynamodb_table.scan()
@@ -128,7 +130,7 @@ def get_feedbacks():
         return build_response(200, feedbacks)
     except ClientError as e:
         print('Error:', e)
-        return build_response(500, 'Error getting feedbacks')
+        return build_response(500, {'message': 'Error getting feedbacks'})
 
 
 def save_feedback(feedback_data):
@@ -136,17 +138,39 @@ def save_feedback(feedback_data):
     Save new feedback to the database.
 
     Args:
-    feedback_data (dict): The feedback data to save.
+        feedback_data (dict): The feedback data to save.
 
     Returns:
-    dict: A response indicating success or failure.
+        dict: A response indicating success or failure.
     """
     try:
         dynamodb_table.put_item(Item=feedback_data)
-        return build_response(200, 'Feedback added successfully')
+        return build_response(200, {'message': 'Feedback added successfully'})
     except ClientError as e:
         print('Error:', e)
-        return build_response(500, 'Error saving feedback')
+        return build_response(500, {'message': 'Error saving feedback'})
+
+
+def delete_feedback(body):
+    """
+    Delete feedback by its ID.
+
+    Args:
+        body (dict): The request body containing the feedback ID.
+
+    Returns:
+        dict: A response indicating success or failure.
+    """
+    try:
+        feedback_id = body.get('feedback_id')
+        if not feedback_id:
+            return build_response(400, {'message': 'Invalid request: Missing feedback_id'})
+
+        dynamodb_table.delete_item(Key={'feedback_id': feedback_id})
+        return build_response(200, {'message': f'Feedback with id {feedback_id} deleted successfully'})
+    except ClientError as e:
+        print('Error:', e)
+        return build_response(500, {'message': 'Error deleting feedback'})
 
 
 def build_response(status_code, body):
@@ -154,16 +178,19 @@ def build_response(status_code, body):
     Build an HTTP response.
 
     Args:
-    status_code (int): The HTTP status code.
-    body (dict or list): The body of the response to be converted to JSON.
+        status_code (int): The HTTP status code.
+        body (dict or list): The body of the response to be converted to JSON.
 
     Returns:
-    dict: The HTTP response with the specified status code and body.
+        dict: The HTTP response with the specified status code and body.
     """
     return {
         'statusCode': status_code,
         'headers': {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Headers': 'Content-Type',
+            'Access-Control-Allow-Methods': 'OPTIONS,POST,GET,PUT,DELETE,PATCH'
         },
         'body': json.dumps(body)
     }
