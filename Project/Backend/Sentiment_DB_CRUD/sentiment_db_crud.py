@@ -46,7 +46,7 @@ def lambda_handler(event, context):
 
     except Exception as e:
         print('Error:', e)
-        response = build_response(400, {'message': 'Error processing request'})
+        response = build_response(400, {'message': f'Error processing request: {str(e)}'})
 
     return response
 
@@ -73,7 +73,10 @@ def get_feedback(body):
             return build_response(400, {'message': 'Invalid request: Missing feedback_id or username'})
     except ClientError as e:
         print('Error:', e)
-        return build_response(500, {'message': 'Error getting feedback'})
+        return build_response(500, {'message': f'Error getting feedback: {str(e)}'})
+    except Exception as e:
+        print('Error:', e)
+        return build_response(500, {'message': f'Unexpected error: {str(e)}'})
 
 
 def get_feedback_by_id(feedback_id):
@@ -89,10 +92,15 @@ def get_feedback_by_id(feedback_id):
     try:
         response = dynamodb_table.get_item(Key={'feedback_id': feedback_id})
         feedback = response.get('Item', {})
+        if not feedback:
+            return build_response(404, {'message': f'Feedback with id {feedback_id} not found'})
         return build_response(200, feedback)
     except ClientError as e:
         print('Error:', e)
-        return build_response(500, {'message': 'Error getting feedback'})
+        return build_response(500, {'message': f'Error getting feedback: {str(e)}'})
+    except Exception as e:
+        print('Error:', e)
+        return build_response(500, {'message': f'Unexpected error: {str(e)}'})
 
 
 def get_feedback_by_user(feedback_user):
@@ -111,10 +119,15 @@ def get_feedback_by_user(feedback_user):
             KeyConditionExpression=Key('username').eq(feedback_user)
         )
         feedback = response.get('Items', [])
+        if not feedback:
+            return build_response(404, {'message': f'No feedback found for user {feedback_user}'})
         return build_response(200, feedback)
     except ClientError as e:
         print('Error:', e)
-        return build_response(500, {'message': 'Error getting feedback'})
+        return build_response(500, {'message': f'Error getting feedback: {str(e)}'})
+    except Exception as e:
+        print('Error:', e)
+        return build_response(500, {'message': f'Unexpected error: {str(e)}'})
 
 
 def get_feedbacks():
@@ -130,7 +143,10 @@ def get_feedbacks():
         return build_response(200, feedbacks)
     except ClientError as e:
         print('Error:', e)
-        return build_response(500, {'message': 'Error getting feedbacks'})
+        return build_response(500, {'message': f'Error getting feedbacks: {str(e)}'})
+    except Exception as e:
+        print('Error:', e)
+        return build_response(500, {'message': f'Unexpected error: {str(e)}'})
 
 
 def save_feedback(feedback_data):
@@ -148,7 +164,10 @@ def save_feedback(feedback_data):
         return build_response(200, {'message': 'Feedback added successfully'})
     except ClientError as e:
         print('Error:', e)
-        return build_response(500, {'message': 'Error saving feedback'})
+        return build_response(500, {'message': f'Error saving feedback: {str(e)}'})
+    except Exception as e:
+        print('Error:', e)
+        return build_response(500, {'message': f'Unexpected error: {str(e)}'})
 
 
 def delete_feedback(body):
@@ -166,11 +185,19 @@ def delete_feedback(body):
         if not feedback_id:
             return build_response(400, {'message': 'Invalid request: Missing feedback_id'})
 
-        dynamodb_table.delete_item(Key={'feedback_id': feedback_id})
+        response = dynamodb_table.delete_item(
+            Key={'feedback_id': feedback_id},
+            ConditionExpression='attribute_exists(feedback_id)'
+        )
         return build_response(200, {'message': f'Feedback with id {feedback_id} deleted successfully'})
     except ClientError as e:
+        if e.response['Error']['Code'] == 'ConditionalCheckFailedException':
+            return build_response(404, {'message': f'Feedback with id {feedback_id} not found'})
         print('Error:', e)
-        return build_response(500, {'message': 'Error deleting feedback'})
+        return build_response(500, {'message': f'Error deleting feedback: {str(e)}'})
+    except Exception as e:
+        print('Error:', e)
+        return build_response(500, {'message': f'Unexpected error: {str(e)}'})
 
 
 def build_response(status_code, body):
