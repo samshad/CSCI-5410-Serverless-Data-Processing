@@ -1,19 +1,32 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { Form, Button, Container, Alert } from 'react-bootstrap';
 
 import './GiveFeedback.css';
 
+/**
+ * GiveFeedback Component
+ * This component allows users to submit their feedback.
+ * The feedback is then stored in the database.
+ */
 function GiveFeedback() {
     const [feedback, setFeedback] = useState('');
     const [message, setMessage] = useState('');
 
-    const username = 'samshad';
+    const username = 'samshad';  // TODO: need to make it dynamic. For now, hardcoding it.
 
+    /**
+     * Handles the form submission for feedback.
+     * @param {object} e - The event object
+     * @returns {Promise<void>}
+     */
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+        // Get the current date and time in ISO format
         const currentDateTime = new Date().toISOString().slice(0, 19).replace('T', ' ');
 
+        // Prepare feedback data/payload in JSON format
         const feedbackData = {
             feedback: feedback,
             username: username,
@@ -35,23 +48,25 @@ function GiveFeedback() {
     };
 
     return (
-        <div className="feedbackFormContainer">
+        <Container className="feedbackFormContainer">
             <h1>Submit Feedback</h1>
-            <form onSubmit={handleSubmit} className="feedbackForm">
-                <div>
-                    <label htmlFor="feedback">Feedback:</label>
-                    <input
-                        type="text"
-                        id="feedback"
+            <Form onSubmit={handleSubmit} className="feedbackForm">
+                <Form.Group controlId="feedback">
+                    <Form.Label>Feedback:</Form.Label>
+                    <Form.Control
+                        as="textarea"
+                        rows={5}
                         value={feedback}
                         onChange={(e) => setFeedback(e.target.value)}
                         required
                     />
-                </div>
-                <button type="submit">Submit</button>
-            </form>
-            {message && <p>{message}</p>}
-        </div>
+                </Form.Group>
+                <Button variant="primary" type="submit">
+                    Submit
+                </Button>
+            </Form>
+            {message && <Alert variant={message.includes('successfully') ? 'success' : 'danger'}>{message}</Alert>}
+        </Container>
     );
 }
 
