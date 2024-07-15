@@ -31,7 +31,7 @@ const FeedbackList = () => {
     const fetchFeedbacks = async () => {
         setLoading(true);
         try {
-            const response = await axios.post('https://2levm8ra85.execute-api.us-east-1.amazonaws.com/v1/feedbacks', { username: 'samshad' });
+            const response = await axios.get('https://2levm8ra85.execute-api.us-east-1.amazonaws.com/v1/feedbacks');
             const sortedFeedbacks = response.data.sort((a, b) => new Date(b.date_time) - new Date(a.date_time));
             setFeedbacks(sortedFeedbacks);
         } catch (err) {
