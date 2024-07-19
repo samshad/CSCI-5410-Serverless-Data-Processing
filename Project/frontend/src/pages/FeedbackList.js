@@ -1,9 +1,50 @@
-import GetFeedbacks from '../components/GetFeedbacks/GetFeedbacks';
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import validateToken from '../components/validateToken';
 
-function FeedbackList() {
+import GetAllFeedbacks from '../components/GetFeedbacks/GetAllFeedbacks';
+import GiveFeedback from '../components/GiveFeedback/GiveFeedback';
+import GetOwnFeedbacks from '../components/GetFeedbacks/GetOwnFeedbacks';
+
+import './FeedbackList.css';
+
+const FeedbackList = ({ userId, handleSignOut }) => {
+  const [isValid, setIsValid] = useState(null);
+
+  useEffect(() => {
+    console.log("User ID (FeedbackList):", userId);
+
+    const checkTokenValidity = async () => {
+      const tokenIsValid = await validateToken();
+      setIsValid(tokenIsValid);
+    };
+
+    checkTokenValidity();
+  }, [userId]);
+
   return (
-    <GetFeedbacks />
+    <div className="feedback-list-container">
+      <header className="feedback-list-header">
+      <Link to="/" className="nav-link">Home</Link>
+        {isValid && (
+          <button onClick={handleSignOut} className="sign-out-button">Sign Out</button>
+        )}
+      </header>
+      <GetAllFeedbacks />
+      <div className="feedback-list-content">
+        {isValid === null ? (
+          <h1>Checking validity...</h1>
+        ) : isValid ? (
+          <div className="feedback-container">
+            <GiveFeedback userId={userId} />
+            <GetOwnFeedbacks userId={userId} />
+          </div>
+        ) : (
+          <h1>Log in to give feedback</h1>
+        )}
+      </div>
+    </div>
   );
-}
+};
 
 export default FeedbackList;

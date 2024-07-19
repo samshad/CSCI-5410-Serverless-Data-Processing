@@ -1,0 +1,184 @@
+{
+  "Header": {
+    "title": "Dal Vacation Home",
+    "paragraph": "A safe and inclusive resort for everyone in Dalhousie University"
+  },
+  "Booking": {
+    "paragraph": "Book a room with us to confirm your stay",
+    "Why": [
+      "Lorem ipsum dolor",
+      "Tempor incididunt",
+      "Lorem ipsum dolor",
+      "Incididunt ut labore"
+    ],
+    "Why2": [
+      "Aliquip ex ea commodo",
+      "Lorem ipsum dolor",
+      "Exercitation ullamco",
+      "Lorem ipsum dolor"
+    ]
+  },
+  "Gallery": [
+    {
+      "title": "Project Title",
+      "largeImage": "img/portfolio/01-large.jpg",
+      "smallImage": "img/portfolio/01-small.jpg"
+    },
+    {
+      "title": "Project Title",
+      "largeImage": "img/portfolio/02-large.jpg",
+      "smallImage": "img/portfolio/02-small.jpg"
+    },
+    {
+      "title": "Project Title",
+      "largeImage": "img/portfolio/03-large.jpg",
+      "smallImage": "img/portfolio/03-small.jpg"
+    },
+    {
+      "title": "Project Title",
+      "largeImage": "img/portfolio/04-large.jpg",
+      "smallImage": "img/portfolio/04-small.jpg"
+    },
+    {
+      "title": "Project Title",
+      "largeImage": "img/portfolio/05-large.jpg",
+      "smallImage": "img/portfolio/05-small.jpg"
+    },
+    {
+      "title": "Project Title",
+      "largeImage": "img/portfolio/06-large.jpg",
+      "smallImage": "img/portfolio/06-small.jpg"
+    },
+    {
+      "title": "Project Title",
+      "largeImage": "img/portfolio/07-large.jpg",
+      "smallImage": "img/portfolio/07-small.jpg"
+    },
+    {
+      "title": "Project Title",
+      "largeImage": "img/portfolio/08-large.jpg",
+      "smallImage": "img/portfolio/08-small.jpg"
+    },
+    {
+      "title": "Project Title",
+      "largeImage": "img/portfolio/09-large.jpg",
+      "smallImage": "img/portfolio/09-small.jpg"
+    }
+  ],
+  "Services": [
+    {
+      "icon": "fa fa-wordpress",
+      "name": "Lorem ipsum dolor",
+      "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed dapibus leo nec ornare diam sedasd commodo nibh ante facilisis bibendum dolor feugiat at."
+    },
+    {
+      "icon": "fa fa-cart-arrow-down",
+      "name": "Consectetur adipiscing",
+      "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed dapibus leo nec ornare diam sedasd commodo nibh ante facilisis bibendum dolor feugiat at."
+    },
+    {
+      "icon": "fa fa-cloud-download",
+      "name": "Lorem ipsum dolor",
+      "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed dapibus leo nec ornare diam sedasd commodo nibh ante facilisis bibendum dolor feugiat at."
+    },
+    {
+      "icon": "fa fa-language",
+      "name": "Consectetur adipiscing",
+      "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed dapibus leo nec ornare diam sedasd commodo nibh ante facilisis bibendum dolor feugiat at."
+    },
+    {
+      "icon": "fa fa-plane",
+      "name": "Lorem ipsum dolor",
+      "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed dapibus leo nec ornare diam sedasd commodo nibh ante facilisis bibendum dolor feugiat at."
+    },
+    {
+      "icon": "fa fa-pie-chart",
+      "name": "Consectetur adipiscing",
+      "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed dapibus leo nec ornare diam sedasd commodo nibh ante facilisis bibendum dolor feugiat at."
+    }
+  ],
+  "Testimonials": [
+    {
+      "img": "img/testimonials/01.jpg",
+      "text": "\"The overall quality provided by Dal Vacation Home was excellent; I really enjoyed my stay. That room was so big, neat and with a magnificent aerial of the entire city.\"",
+      "name": "John Smith"
+    },
+    {
+      "img": "img/testimonials/02.jpg",
+      "text": "\" The people who work there are very nice and supportive too. I advise anyone who is looking for a quiet place to relax to go there as soon as possible.\"",
+      "name": "Johnathan Carter"
+    },
+    {
+      "img": "img/testimonials/03.jpg",
+      "text": "\"It was a seamless booking experience where the rooms were beyond my expectations. I am definitely returning as soon as possible. See you soon Dal Vacation Home!\"",
+      "name": "Uchi Tang"
+    },
+    {
+      "img": "img/testimonials/04.jpg",
+      "text": "\" The amenities were excellent, not to mention the convenient location of this hotel thereby making it a cinch to tour around the famous attractions in the area. Loved it!\"",
+      "name": "Sam Currain"
+    },
+    {
+      "img": "img/testimonials/05.jpg",
+      "text": "\"My experience at Dal Vacation Home was absolutely stunning. Moreover, the hotel staff was friendly and attentive so that they attended to all my needs. Overall, great feeling.\"",
+      "name": "Mike Anthony"
+    },
+    {
+      "img": "img/testimonials/06.jpg",
+      "text": "\"The overall quality provided by Dal Vacation Home was excellent; I really enjoyed my stay. That room was so big, neat and with a magnificent aerial of the entire city.\"",
+      "name": "Sarah"
+    }
+  ],
+  "Team": [
+    {
+      "img": "img/team/01.jpg",
+      "name": "John Doe",
+      "job": "Director"
+    },
+    {
+      "img": "img/team/02.jpg",
+      "name": "Mike Doe",
+      "job": "Senior Designer"
+    },
+    {
+      "img": "img/team/03.jpg",
+      "name": "Jane Doe",
+      "job": "Senior Designer"
+    },
+    {
+      "img": "img/team/04.jpg",
+      "name": "Karen Doe",
+      "job": "Project Manager"
+    }
+  ],
+  "Contact": {
+    "address": "4321 Waterfront St, Halifax, NS 12345 ",
+    "phone": "+1 132 456 1334",
+    "email": "info@dalvacationhome.ca",
+    "facebook": "fb.com",
+    "twitter": "twitter.com",
+    "youtube": "youtube.com"
+  },
+  "Features": [
+    {
+      "img": "img/Features/Bedroom.jpg",
+      "title": "Bedrooms Rentals",
+      "text": "Rent out 1-3 person rooms, subsidized for members"
+    },
+    {
+      "img": "img/Features/conference hall.jpg",
+      "title": "Conference hall rentals",
+      "text": "Plan your trips and events by booking one of our fully stocked conference halls"
+    },
+    {
+      "img": "img/Features/Playroom.jpg",
+      "title": "Playroom rentals",
+      "text": "Organize events or come as a group and enjoy all the facilites present in our playroom"
+    },
+    {
+      "img": "img/Features/Theaterroom.jpg",
+      "title": "Theater room rentals",
+      "text": "Wanna have a theter experience but alone, book our theater room and enjoy any movie you need"
+    }
+  ]
+}

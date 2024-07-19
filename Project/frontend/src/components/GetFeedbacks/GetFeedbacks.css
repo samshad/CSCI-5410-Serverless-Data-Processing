@@ -1,81 +1,82 @@
 /* GetFeedbacks.css */
 
-.feedbackListContainer {
-    width: 80%;
-    margin: 0 auto;
+.feedback-list-container {
+    margin: 20px;
     padding: 20px;
     background-color: #f9f9f9;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.feedbackListContainer h1 {
+.feedback-list-container h1 {
     text-align: center;
     margin-bottom: 20px;
-    color: #333;
 }
 
-.feedbackTable {
-    width: 100%;
-    margin-bottom: 20px;
-    border-collapse: collapse;
-}
-
-.feedbackTable th,
-.feedbackTable td {
-    padding: 10px;
-    text-align: left;
-}
-
-.feedbackTable th {
-    background-color: #007bff;
-    color: white;
-    font-weight: bold;
-}
-
-.feedbackTable tbody tr:nth-child(odd) {
-    background-color: #f2f2f2;
-}
-
-.feedbackTable tbody tr:nth-child(even) {
-    background-color: #e9ecef;
-}
-
-.feedbackTable td button {
-    border: none;
-    padding: 5px 10px;
-    background-color: #dc3545;
-    color: white;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.feedbackTable td button:hover {
-    background-color: #c82333;
-}
-
-.pagination {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.pagination button,
-.pagination .pagination-item {
-    margin: 0 5px;
-}
-
-.refreshButton {
+.refresh-button {
     display: block;
     margin: 0 auto 20px auto;
     padding: 10px 20px;
-    background-color: #28a745;
+    background-color: #007bff;
     color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    font-size: 16px;
+    text-align: center;
 }
 
-.refreshButton:hover {
-    background-color: #218838;
+.refresh-button:hover {
+    background-color: #0056b3;
+}
+
+.feedback-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.feedback-table th,
+.feedback-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.feedback-table th {
+    background-color: #007bff;
+    color: white;
+}
+
+.pagination-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.pagination-button {
+    padding: 8px 16px;
+    margin: 0 5px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.pagination-button:disabled {
+    background-color: #ddd;
+    cursor: not-allowed;
+}
+
+.pagination-button:hover:not(:disabled) {
+    background-color: #0056b3;
+}
+
+.current-page {
+    margin: 0 10px;
+    font-size: 16px;
 }
