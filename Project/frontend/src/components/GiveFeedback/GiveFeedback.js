@@ -2,12 +2,25 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import './GiveFeedback.css';
 
+/**
+ * GiveFeedback Component
+ * This component allows a user to submit feedback.
+ * 
+ * @param {Object} props - The component props
+ * @param {string} props.userId - The ID of the user submitting feedback
+ */
 const GiveFeedback = ({ userId }) => {
     const [feedback, setFeedback] = useState('');
     const [message, setMessage] = useState('');
 
     const username = userId;
 
+    /**
+     * Handle the submission of feedback.
+     * 
+     * @param {Object} e - The event object
+     * @returns {Promise<void>}
+     */
     const handleSubmit = async (e) => {
         e.preventDefault();
 

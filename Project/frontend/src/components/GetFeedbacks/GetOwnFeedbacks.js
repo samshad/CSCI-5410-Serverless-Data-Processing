@@ -14,7 +14,7 @@ const FeedbackList = ({ userId }) => {
     const [currentPage, setCurrentPage] = useState(1);
     const feedbacksPerPage = 5; // Number of feedbacks to display per page
 
-    console.log("User ID (GetOwnFeedbacks):", userId);
+    // console.log("User ID (GetOwnFeedbacks):", userId);
 
     /**
      * Fetch feedbacks from the API and sort them by date in descending order.

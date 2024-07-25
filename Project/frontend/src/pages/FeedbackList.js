@@ -8,12 +8,26 @@ import GetOwnFeedbacks from '../components/GetFeedbacks/GetOwnFeedbacks';
 
 import './FeedbackList.css';
 
+/**
+ * FeedbackList Component
+ * This component handles the display of feedback-related components based on user authentication status.
+ * 
+ * @param {Object} props - The component props
+ * @param {string} props.userId - The ID of the user
+ * @param {Function} props.handleSignOut - Function to handle user sign out
+ */
 const FeedbackList = ({ userId, handleSignOut }) => {
   const [isValid, setIsValid] = useState(null);
 
   useEffect(() => {
-    console.log("User ID (FeedbackList):", userId);
+    // console.log("User ID (FeedbackList):", userId);
 
+    /**
+     * Check the validity of the token.
+     * This function is called when the component is mounted.
+     * 
+     * @returns {Promise<void>}
+     */
     const checkTokenValidity = async () => {
       const tokenIsValid = await validateToken();
       setIsValid(tokenIsValid);

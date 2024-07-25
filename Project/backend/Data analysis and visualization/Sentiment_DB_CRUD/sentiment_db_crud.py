@@ -33,7 +33,7 @@ def lambda_handler(event, context):
 
         if http_method == 'GET' and path == STATUS_CHECK_PATH:
             response = build_response(200, {'message': 'Service is operational'})
-        elif http_method == 'POST' and path == FEEDBACKS_PATH:
+        elif http_method == 'GET' and path == FEEDBACK_PATH:
             response = get_feedback(json.loads(event['body']))
         elif http_method == 'GET' and path == FEEDBACKS_PATH:
             response = get_feedbacks()

@@ -4,7 +4,7 @@ import axios from 'axios';
 import './GetFeedbacks.css';
 
 /**
- * GetFeedbacks Component
+ * GetAllFeedbacks Component
  * This component fetches and displays a list of feedbacks with pagination.
  */
 const FeedbackList = () => {
